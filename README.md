@@ -12,6 +12,9 @@ A real estate price prediction and analytics platform. The project aims to provi
 
 ## Project Workflow
 - Data Preprocessing
+    - CSV cleaning mannual
+    - Flats and Independent house data cleaning
+    - combine Flats and Independent house data cleaning
 - EDA (Univariate, Bivariate and Multivariate Analysis). Analtics feature based on EDA
 - Feature Selection
 - Feature Engineering
