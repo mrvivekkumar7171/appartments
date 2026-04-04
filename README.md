@@ -11,13 +11,19 @@ A real estate price prediction and analytics platform. The project aims to provi
 4. Insights Module : ML regression model for feature selection and tell which features are more important for price prediction and how much.
 
 ## Project Workflow
+- Data Gathering
+    - Web Scraping from 99acres.com
 - Data Preprocessing
     - CSV cleaning mannual
     - Flats and Independent house data cleaning
-    - combine Flats and Independent house data cleaning
-- EDA (Univariate, Bivariate and Multivariate Analysis). Analtics feature based on EDA
-- Feature Selection
+    - combine Flats and Independent house data and cleaning
 - Feature Engineering
+    - creating new features
+- EDA
+    - Univariate Analysis
+    - Bivariate Analysis
+    - Multivariate Analysis
+- Feature Selection
 - Model Building
 
 ## Points of Improvement
