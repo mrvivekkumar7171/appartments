@@ -55,5 +55,6 @@ selected_appartment = st.selectbox('Select an appartment', sorted(location_df.in
 
 if st.button('Recommend'):
     # We can take selected_appartment as input from above search result
+    # we can also add link of the appartment in the output dataframe
     recommendation_df = recommend_properties_with_scores(selected_appartment)
     st.dataframe(recommendation_df)
