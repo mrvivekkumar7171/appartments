@@ -10,10 +10,7 @@ import numpy as np
 import pandas as pd
 import pickle
 
-st.set_page_config(
-    page_title="Apartment Analytics Report",
-    page_icon="👋"
-    )
+st.set_page_config(page_title="Apartment Analytics Report", page_icon="👋", layout="wide")
 # st.title('Analytics')
 new_df = pd.read_csv('A:/CODES/PROJECTS/appartments/models/data_viz1.csv')
 feature_text = pickle.load(open('A:/CODES/PROJECTS/appartments/models/feature_text.pkl','rb'))
@@ -21,16 +18,28 @@ feature_text = pickle.load(open('A:/CODES/PROJECTS/appartments/models/feature_te
 
 st.header('Scatter Plot on Geo Map')
 group_df = new_df.groupby('sector').mean(numeric_only=True)[['price', 'price_per_sqft', 'built_up_area', 'latitude', 'longitude']]
-fig = px.scatter_map(group_df, lat="latitude", lon="longitude", color="price_per_sqft", size='built_up_area',
-    zoom=10, color_continuous_scale=px.colors.cyclical.IceFire, map_style="open-street-map", width=1200, height=700,
-    hover_name=group_df.index, title='Price per Sq ft Sector-wise', labels={"price_per_sqft": "Price Per Sqft"}
+fig = px.scatter_map(
+    group_df, 
+    lat="latitude", 
+    lon="longitude", 
+    color="price_per_sqft", 
+    size='built_up_area',
+    zoom=10.5, 
+    color_continuous_scale=px.colors.cyclical.IceFire, 
+    map_style="open-street-map", 
+    width=1200, 
+    height=700,
+    hover_name=group_df.index,
+    hover_data={"latitude": False, "longitude": False, "price_per_sqft": True, "built_up_area": True},
+    title='Price per Sq ft Sector-wise', 
+    labels={"price_per_sqft": "Price Per Sqft"}
 )
 
 st.plotly_chart(fig, width='stretch')
 
 
 st.header('Word Cloud')
-wordcloud = WordCloud(width = 800, height = 800, background_color ='black', stopwords = set(['s']),  # Any stopwords you'd like to exclude
+wordcloud = WordCloud(width = 800, height = 400, background_color ='black', stopwords = set(['s']),  # Any stopwords you'd like to exclude
                       min_font_size = 10).generate(feature_text) # Feature Word Cloud
 fig_wc = plt.figure(figsize = (8, 8), facecolor = None)
 plt.imshow(wordcloud, interpolation='bilinear')
@@ -38,9 +47,11 @@ plt.axis("off")
 plt.tight_layout(pad = 0)
 st.pyplot(fig_wc)
 
-
-st.header('Scatter Plot')
-property_type = st.selectbox('Select Property Type', ['All', 'Flat', 'House'])
+col1, col2 = st.columns(2)
+with col1:
+    st.header('Scatter Plot')
+with col2:
+    property_type = st.selectbox('Select Property Type', ['All', 'Flat', 'House'])
 if property_type == 'All':
     fig1 = px.scatter(new_df, x="built_up_area", y="price", color="bedRoom", title="Area Vs Price",
     labels={"built_up_area": "Built Up Area", "price": "Price", "bedRoom": "Bed Room"})
@@ -54,11 +65,13 @@ else:
     labels={"built_up_area": "Built Up Area", "price": "Price", "bedRoom": "Bed Room"})
     st.plotly_chart(fig1, width='stretch')
 
-
-st.header('Pie Chart')
-sector_options = new_df['sector'].unique().tolist()
-sector_options.insert(0, 'Overall')
-selected_sector = st.selectbox('Select Sector', sector_options)
+col1, col2 = st.columns(2)
+with col1:
+    st.header('Pie Chart')
+with col2:
+    sector_options = new_df['sector'].unique().tolist()
+    sector_options.insert(0, 'Overall')
+    selected_sector = st.selectbox('Select Sector', sector_options)
 if selected_sector == 'Overall':
     fig2 = px.pie(new_df, names='bedRoom', title='BHK Distribution in Overall Sectors')
     st.plotly_chart(fig2, width='stretch')

@@ -4,14 +4,14 @@ import numpy as np
 import pickle
 
 
-st.set_page_config(page_title="Recommend Appartments")
+st.set_page_config(page_title="Recommend Appartments", page_icon="👋", layout="wide")
 location_df = pickle.load(open('A:/CODES/PROJECTS/appartments/models/location_distance.pkl','rb'))
 cosine_sim1 = pickle.load(open('A:/CODES/PROJECTS/appartments/models/cosine_sim1.pkl','rb'))
 cosine_sim2 = pickle.load(open('A:/CODES/PROJECTS/appartments/models/cosine_sim2.pkl','rb'))
 cosine_sim3 = pickle.load(open('A:/CODES/PROJECTS/appartments/models/cosine_sim3.pkl','rb'))
 
 
-def recommend_properties_with_scores(property_name, top_n=5):
+def recommend_properties_with_scores(property_name, top_n=10):
     cosine_sim_matrix = 0.5 * cosine_sim1 + 0.8 * cosine_sim2 + 1 * cosine_sim3
     # cosine_sim_matrix = cosine_sim3
 
@@ -38,10 +38,13 @@ def recommend_properties_with_scores(property_name, top_n=5):
 
 
 st.title('Select Location and Radius')
-selected_location = st.selectbox('Location',sorted(location_df.columns.to_list()))
-radius = st.number_input('Radius in Kms')
+col1, col2 = st.columns(2)
+with col1:
+    selected_location = st.selectbox('Location',sorted(location_df.columns.to_list()))
+with col2:
+    radius = st.number_input('Radius in Kms', value=55)
 
-if st.button('Search'):
+if st.button('Search', type="primary", width="stretch"):
     result_df = location_df[location_df[selected_location] < radius*1000][[selected_location]].sort_values(by=selected_location)
     if result_df.empty:
         st.warning(f"No properties found within {radius} km of {selected_location}. Try increasing the radius!")
@@ -49,11 +52,22 @@ if st.button('Search'):
         result_df[selected_location] = result_df[selected_location].apply(lambda x: round(x/1000, 2))
         st.dataframe(result_df)
 
+st.title('Recommend Appartments', width="stretch")
+col1, col2 = st.columns(2)
+with col1:
+    selected_appartment = st.selectbox('Select an appartment', sorted(location_df.index.to_list()))
+with col2:
+    st.markdown("""
+       <style>
+       div.stButton > button {
+       height: 38px;
+       margin-top: 12px;
+       }
+       </style>
+       """, unsafe_allow_html=True)
+    button = st.button('Recommend', type="primary", width="stretch")
 
-st.title('Recommend Appartments')
-selected_appartment = st.selectbox('Select an appartment', sorted(location_df.index.to_list()))
-
-if st.button('Recommend'):
+if button:
     # We can take selected_appartment as input from above search result
     # we can also add link of the appartment in the output dataframe
     recommendation_df = recommend_properties_with_scores(selected_appartment)

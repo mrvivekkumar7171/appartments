@@ -1,14 +1,41 @@
 ## Appartments - Project Overview
 A real estate price prediction and analytics platform. The project aims to provide insights into the real estate market, predict property prices, and offer recommendations based on user preferences. The below are the four important featues of the project:
-1. Analytics Module : Give insights about the selected city and its real estate market. The insights include:
-    a. Spatial Analysis : Price distribution across sectors.
-    b. Price Distribution across sectors : Price distribution across sectors using Box Plot
-    c. Price Vs Square Foot Analysis : Price Vs Square Foot Analysis using Scatter Plot for whole or specific sectors.
-    d. Number of rooms Pie Chart : Number of rooms distribution across the city using Pie Chart fpr whole city or specific sectors.
-    e. Top Feature Word Cloud : 
-2. Price prediction Module : ML model for price range prediction based on user input features.
-3. Recommender System Module : ML model for recommending properties based on selected property.
+
+1. **Analytics Module**: Give insights about the selected city and its real estate market. The insights include:
+
+- **Spatial Analysis with area and price per sq ft**: It is useful to decide which `sector` to invest as per Average Price per Sq ft `color` and Average Area `size` requirements on **Scatter Plot on Map** or **Spatial Analysis**.
+![alt text](/reports/figures/image-4.png)
+
+- **Distribution of Bedrooms for each Sector**: `Bedrooms` distribution for specific sectors using **Pie Chart**. It tells the `number of bedrooms` distribution for the selected **sector**.
+![alt text](/reports/figures/image-7.png)
+
+- **Distribution of Price for Different Property Types**: It is useful to decide which `property type` to invest in using **Histogram with KDE**.
+![alt text](/reports/figures/image-8.png)
+
+- **Price Vs Built Up Area Analysis**: Price Vs Built Up Area Analysis using ***Scatter Plot** for whole or specific sectors. It is useful to find the `Built Up Area` will customer get for the price for the selected **property type**.
+![alt text](/reports/figures/image-9.png)
+
+- **Price Distribution for Bedroom**: Price distribution for different number of bedrooms using **Box Plot**. It is useful to decide right `price` range for the selected `number of bedrooms`.
+![alt text](/reports/figures/image-6.png)
+
+- **Top Feature Word Cloud**: It shows **word cloud** of `top features` or `amenities` that are generally provided, the bigger the size the higher the frequency of occurrence of the feature or amenities in a property.
+![alt text](/reports/figures/image-5.png)
+
+2. **Price prediction Module**: ML model for price range prediction based on user input features.
+![alt text](/reports/figures/image-2.png)
+- This can be used to predict the price range of a property based on user input features like location, number of rooms, square footage, etc.
+
+3. **Recommender System Module**: ML model for recommending properties based on selected property.
+![alt text](/reports/figures/image-3.png)
+![alt text](/reports/figures/image.png)
+- This can be used to tell nearest popular places with distance.
+![alt text](/reports/figures/image-1.png)
+- This can be used to recommend similar properties based on selected property like recommending or listing similar properties below the current property the user is viewing in a website or app.
+
 4. Insights Module : ML regression model for feature selection and tell which features are more important for price prediction and how much.
+
+## EDA
+![alt text](/reports/figures/Pandas_Profiling_Report.png)
 
 ## Project Workflow
 - Data Gathering
@@ -35,7 +62,6 @@ A real estate price prediction and analytics platform. The project aims to provi
 6. Add more features
 
 ## Project Organization
-
 ```
 ├── LICENSE            <- Open-source license if one is chosen
 ├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
@@ -84,6 +110,3 @@ A real estate price prediction and analytics platform. The project aims to provi
     │
     └── plots.py                <- Code to create visualizations
 ```
-
---------
-
